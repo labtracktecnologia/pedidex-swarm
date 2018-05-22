@@ -8,6 +8,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import org.hibernate.validator.constraints.Email;
 
 @Entity
 @Table(name = "CLIENTES")
@@ -20,14 +23,22 @@ public class Cliente implements Entidade {
     private Long id;
     
     @Column(name = "DOCUMENTO", length = 20)
+    @NotNull(message = "{Cliente.documento.NotNull}")
+    @Size(min = 5, max = 18, message = "{Cliente.documento.Size}")
     private String documento;
     
     @Column(name = "NOME", length = 80)
+    @NotNull(message = "{Cliente.nome.NotNull}")
+    @Size(min = 5, max = 80, message = "{Cliente.nome.Size}")
     private String nome;
     
+    @Size(min = 8, max = 20, message = "{Cliente.telefone.Size}")
     @Column(name = "TELEFONE", length = 20)
     private String telefone;
     
+    @Email(message = "{Cliente.email.Email}")
+    @NotNull(message = "{Cliente.email.NotNull}")
+    @Size(max = 100, message = "{Cliente.email.Size}")
     @Column(name = "EMAIL", length = 100)
     private String email;
 

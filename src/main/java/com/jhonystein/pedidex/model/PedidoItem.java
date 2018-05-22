@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "PEDIDOS_ITENS")
@@ -22,16 +24,23 @@ public class PedidoItem implements Entidade {
     @GeneratedValue(generator = "PEDIDOS_ITENS_SEQ", strategy = GenerationType.SEQUENCE)
     private Long id;
     
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "ID_PRODUTO")
     private Produto produto;
     
+    @NotNull
+    @Digits(integer = 10, fraction = 5)
     @Column(name = "VL_UNITARIO", precision = 15, scale = 5)
     private BigDecimal valorUnitario;
     
+    @NotNull
+    @Digits(integer = 10, fraction = 5)
     @Column(name = "QUANTIDADE", precision = 15, scale = 5)
     private BigDecimal quantidade;
     
+    @NotNull
+    @Digits(integer = 10, fraction = 5)
     @Column(name = "VL_TOTAL", precision = 15, scale = 5)
     private BigDecimal valorTotal;
 

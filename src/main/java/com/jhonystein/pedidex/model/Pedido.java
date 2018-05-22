@@ -18,6 +18,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "PEDIDOS")
@@ -29,10 +31,12 @@ public class Pedido implements Entidade {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PEDIDOS_SEQ")
     private Long id;
     
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "ID_CLIENTE")
     private Cliente cliente;
     
+    @NotNull
     @Column(name = "DT_EMISSAO")
     @Temporal(TemporalType.TIMESTAMP)
     private Date emissao;
@@ -45,6 +49,8 @@ public class Pedido implements Entidade {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PedidoItem> itens;
 
+    @NotNull
+    @Digits(integer = 10, fraction = 5)
     @Column(name = "VL_TOTAL", precision = 15, scale = 5)
     private BigDecimal valorTotal;
     
