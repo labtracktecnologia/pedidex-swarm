@@ -2,11 +2,11 @@
     'use strict'
   
     angular.module('app')
-      .controller('ClienteListController', ClienteListController);
+      .controller('PedidoListController', PedidoListController);
     
-    ClienteListController.$inject = ['ClienteService', 'DialogBuilder']
+    PedidoListController.$inject = ['PedidoService', 'DialogBuilder']
     
-    function ClienteListController(ClienteService, DialogBuilder) {
+    function PedidoListController(PedidoService, DialogBuilder) {
         var vm = this;
         vm.data = {};
         vm.filtro = '';
@@ -27,7 +27,7 @@
         }
 
         function load() {
-            ClienteService.findAll(vm.filtro, vm.page)
+            PedidoService.findAll(vm.filtro, vm.page)
               .then(function (dados) {
                 vm.data = dados
               });
@@ -37,7 +37,7 @@
             DialogBuilder.confirm('Tem certeza que deseja remover o registro?')
                 .then(function (result) {
                     if (result.value) {
-                        ClienteService.remove(item.id)
+                        PedidoService.remove(item.id)
                             .then(function () {
                                 load();
                                 DialogBuilder.message('Registro excluído com sucesso!');

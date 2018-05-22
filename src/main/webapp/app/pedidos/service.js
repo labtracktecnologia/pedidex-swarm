@@ -2,14 +2,14 @@
     'use strict'
 
     angular.module('app')
-      .service('ClienteService', ClienteService);
+      .service('PedidoService', PedidoService);
 
-    ClienteService.$inject = ['$http'];
+    PedidoService.$inject = ['$http'];
 
-    function ClienteService($http) {
+    function PedidoService($http) {
 
         function findAll(filtro, page) {
-            return $http.get('http://localhost:8080/api/clientes?page=' + page.number 
+            return $http.get('http://localhost:8080/api/pedidos?page=' + page.number 
                 + '&size=' + page.size + '&filterField=nome&filterValue=' + filtro)
               .then(function(response) {
                 return {
@@ -36,28 +36,28 @@
         }
 
         function findById(id) {
-            return $http.get('http://localhost:8080/api/clientes/' + id)
+            return $http.get('http://localhost:8080/api/pedidos/' + id)
               .then(function (response) {
                   return response.data;
               });
         }
 
         function insert(registro) {
-            return $http.post('http://localhost:8080/api/clientes', registro)
+            return $http.post('http://localhost:8080/api/pedidos', registro)
               .then(function (response) {
                   return response.data;
               });
         }
 
         function update(registro) {
-            return $http.put('http://localhost:8080/api/clientes/' + registro.id, registro)
+            return $http.put('http://localhost:8080/api/pedidos/' + registro.id, registro)
               .then(function (response) {
                   return response.data;
               });
         }
 
         function remove(id) {
-            return $http.delete('http://localhost:8080/api/clientes/' + id)
+            return $http.delete('http://localhost:8080/api/pedidos/' + id)
               .then(function (response) {
                   return response.data;
               });

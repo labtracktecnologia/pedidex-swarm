@@ -2,11 +2,11 @@
     'use strict'
 
     angular.module('app')
-        .controller('ClienteFormController', ClienteFormController);
+        .controller('PedidoFormController', PedidoFormController);
 
-    ClienteFormController.$inject = ['ClienteService', '$state', '$stateParams','DialogBuilder'];
+    PedidoFormController.$inject = ['PedidoService', '$state', '$stateParams','DialogBuilder'];
 
-    function ClienteFormController(ClienteService, $state, $stateParams, DialogBuilder) {
+    function PedidoFormController(PedidoService, $state, $stateParams, DialogBuilder) {
 
         var vm = this;
         vm.registro = {};
@@ -15,7 +15,7 @@
         vm.salvar = salvar;
 
         if ($stateParams.id) {
-            ClienteService.findById($stateParams.id)
+            PedidoService.findById($stateParams.id)
               .then(function (data) {
                 vm.registro = data;
               });
@@ -23,19 +23,19 @@
 
         function salvar() {
           if (!vm.registro.id) {
-            ClienteService.insert(vm.registro)
+            PedidoService.insert(vm.registro)
               .then(function(dado){
-                DialogBuilder.message('Registro inserido com sucesso!');
-                $state.go("^");
+                DialogBuilder.message('Registro incluído com sucesso!');
+                $state.go(-1);
               })
               .catch(function (error) {
                 vm.error = error.data;
               });
           } else {
-            ClienteService.update(vm.registro)
+            PedidoService.update(vm.registro)
               .then(function(dado){
                 DialogBuilder.message('Registro alterado com sucesso!');
-                $state.go("^");
+                $state.go(-1);
               })
               .catch(function (error) {
                 vm.error = error.data;

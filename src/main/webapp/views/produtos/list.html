@@ -1,43 +1,43 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2">
-    <h1 class="h2">Listagem de Produtos</h1>
+    <h1 class="h2">Listagem de Clientes</h1>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="input-group">
             <input type="text" ng-model="vm.filtro" class="form-control" placeholder="Buscar" aria-label="Buscar" aria-describedby="btnGroupAddon">
             <div class="input-group-append">
-                <button ng-click="vm.resetFilter()" class="btn btn-sm btn-secondary">
+                <button type="button" ng-click="vm.resetFiltro()" class="btn btn-sm btn-secondary">
                     <span class="feather icon-x"></span>
                 </button>
-                <button ng-click="vm.atualizar()" class="btn btn-primary">
+                <button type="button" ng-click="vm.atualizar()" class="btn btn-primary">
                     <span class="feather icon-search"></span>
                 </button>
             </div>
         </div>
-        <a ui-sref="produtosNovo" class="btn btn-success ml-3">
+        <a ui-sref="clientesNovo" class="btn btn-success ml-3">
             <span class="feather icon-plus"></span>
             <span>Novo</span>
         </a>
     </div>
 </div>
-    
+
 <div class="table-responsive">
     <table class="table table-striped table-sm">
         <thead>
             <tr>
-                <th>Código</th>
-                <th>Descrição</th>
-                <th class="text-right">Preço</th>
-                <th class="text-right">Estoque</th>
+                <th>Documento</th>
+                <th>Nome</th>
+                <th>Telefone</th>
+                <th>Email</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="item in vm.registros">
-                <td>{{item.codigo}}</td>
-                <td>{{item.descricao}}</td>
-                <td class="text-right">{{item.preco | currency}}</td>
-                <td class="text-right">{{item.quantidade | number: 3}}</td>
+            <tr ng-repeat="item in vm.data.registros">
+                <td>{{item.documento}}</td>
+                <td>{{item.nome}}</td>
+                <td>{{item.telefone}}</td>
+                <td>{{item.email}}</td>
                 <td class="text-right">
-                    <a ui-sref="produtosEditar({id: item.id})" class="btn btn-sm btn-link py-0">
+                    <a ui-sref="clientesEditar({id: item.id})" class="btn btn-sm btn-link py-0">
                         <span class="feather icon-edit"></span>
                     </a>
                     <button ng-click="vm.excluir(item)" class="btn btn-sm btn-link text-danger py-0">
@@ -47,4 +47,40 @@
             </tr>
         </tbody>
     </table>
+    <nav class="navbar">
+        <ul class="navbar-nav col-sm-2">
+            <li class="nav-item">
+                <div class="form-group row mb-0">
+                    <label class="col-sm-7 col-form-label px-0">Itens por página:</label>
+                    <div class="col-sm-5">
+                        <select ng-model="vm.page.size" ng-change="vm.atualizar()" class="form-control p-0">
+                            <option value="15">15</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                        </select>
+                    </div>
+                </div>
+            </li>
+        </ul>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                Registros {{vm.data.currentPage * vm.data.pageSize - vm.data.pageSize + 1}} a {{vm.data.currentPage * vm.data.pageSize > vm.data.total ? vm.data.total : vm.data.currentPage * vm.data.pageSize}} de um total de {{vm.data.total}}.
+            </li>
+        </ul>
+        <form class="form-inline">
+            <nav>
+                <ul class="pagination justify-content-end mb-0">
+                    <li class="page-item" ng-class="{'disabled': vm.data.currentPage == 1}">
+                        <button ng-click="vm.goToPage(vm.page.number-1)" type="button" class="page-link" tabindex="-1">Anterior</button>
+                    </li>
+                    <li ng-repeat="item in vm.data.pages" class="page-item" ng-class="{'disabled': vm.data.currentPage == item}">
+                        <button ng-click="vm.goToPage(item)" type="button" class="page-link" tabindex="-1">{{item}}</button>
+                    </li>
+                    <li class="page-item" ng-class="{'disabled': vm.data.total <= vm.data.currentPage * vm.data.pageSize}">
+                        <button ng-click="vm.goToPage(vm.page.number+1)" type="button" class="page-link" tabindex="-1">Próxima</button>
+                    </li>
+                </ul>
+            </nav>
+        </form>
+    </nav>
 </div>

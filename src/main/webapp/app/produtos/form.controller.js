@@ -2,22 +2,33 @@
     'use strict'
 
     angular.module('app')
-        .controller('ProdutoFormController', ProdutoFormController);
+        .controller('ClienteFormController', ClienteFormController);
 
-    ProdutoFormController.$inject = ['ProdutoService'];
+    ClienteFormController.$inject = ['ClienteService', '$state', '$stateParams','DialogBuilder'];
 
-    function ProdutoFormController(ProdutoService) {
+    function ClienteFormController(ClienteService, $state, $stateParams, DialogBuilder) {
 
         var vm = this;
-        vm.registro = {}
+        vm.registro = {};
+        vm.error = {};
 
         vm.salvar = salvar;
 
+        if ($stateParams.id) {
+            ClienteService.findById($stateParams.id)
+              .then(function (data) {
+                vm.registro = data;
+              });
+        }
+
         function salvar() {
-            ProdutoService.insert(vm.registro)
+            ClienteService.insert(vm.registro)
               .then(function(dado){
-                alert('Produto ' + dado.codigo + ' inserido com sucesso!!!')
-                vm.registro = {}
+                DialogBuilder.message('Registro excluído com sucesso!');
+                $state.go(-1);
+              })
+              .catch(function (error) {
+                vm.error = error.data;
               });
         }
     }

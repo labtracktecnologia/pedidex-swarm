@@ -47,17 +47,40 @@
             </tr>
         </tbody>
     </table>
-    <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-end">
-            <li class="page-item" ng-class="{'disabled': vm.data.currentPage == 1}">
-                <button ng-click="vm.goToPage(vm.page.number-1)" type="button" class="page-link" tabindex="-1">Anterior</button>
-            </li>
-            <li ng-repeat="item in vm.data.pages" class="page-item" ng-class="{'disabled': vm.data.currentPage == item}">
-                <button ng-click="vm.goToPage(item)" type="button" class="page-link" tabindex="-1">{{item}}</button>
-            </li>
-            <li class="page-item" ng-class="{'disabled': vm.data.total <= vm.data.currentPage * vm.data.pageSize}">
-                <button ng-click="vm.goToPage(vm.page.number+1)" type="button" class="page-link" tabindex="-1">Próxima</button>
+    <nav class="navbar">
+        <ul class="navbar-nav col-sm-2">
+            <li class="nav-item">
+                <div class="form-group row mb-0">
+                    <label class="col-sm-7 col-form-label px-0">Itens por página:</label>
+                    <div class="col-sm-5">
+                        <select ng-model="vm.page.size" ng-change="vm.atualizar()" class="form-control p-0">
+                            <option value="15">15</option>
+                            <option value="25">25</option>
+                            <option value="50">50</option>
+                        </select>
+                    </div>
+                </div>
             </li>
         </ul>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                Registros {{vm.data.currentPage * vm.data.pageSize - vm.data.pageSize + 1}} a {{vm.data.currentPage * vm.data.pageSize > vm.data.total ? vm.data.total : vm.data.currentPage * vm.data.pageSize}} de um total de {{vm.data.total}}.
+            </li>
+        </ul>
+        <form class="form-inline">
+            <nav>
+                <ul class="pagination justify-content-end mb-0">
+                    <li class="page-item" ng-class="{'disabled': vm.data.currentPage == 1}">
+                        <button ng-click="vm.goToPage(vm.page.number-1)" type="button" class="page-link" tabindex="-1">Anterior</button>
+                    </li>
+                    <li ng-repeat="item in vm.data.pages" class="page-item" ng-class="{'disabled': vm.data.currentPage == item}">
+                        <button ng-click="vm.goToPage(item)" type="button" class="page-link" tabindex="-1">{{item}}</button>
+                    </li>
+                    <li class="page-item" ng-class="{'disabled': vm.data.total <= vm.data.currentPage * vm.data.pageSize}">
+                        <button ng-click="vm.goToPage(vm.page.number+1)" type="button" class="page-link" tabindex="-1">Próxima</button>
+                    </li>
+                </ul>
+            </nav>
+        </form>
     </nav>
 </div>

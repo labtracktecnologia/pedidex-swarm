@@ -2,25 +2,34 @@
     'use strict'
   
     angular.module('app')
-      .controller('ProdutoListController', ProdutoListController);
+      .controller('ClienteListController', ClienteListController);
     
-    ProdutoListController.$inject = ['ProdutoService', 'DialogBuilder']
+    ClienteListController.$inject = ['ClienteService', 'DialogBuilder']
     
-    function ProdutoListController(ProdutoService, DialogBuilder) {
+    function ClienteListController(ClienteService, DialogBuilder) {
         var vm = this;
-        vm.registros = [];
+        vm.data = {};
         vm.filtro = '';
+        vm.page = {
+            number: 1,
+            size: '15'
+        }
   
         vm.atualizar = load;
-        vm.resetFilter = function () {
+        vm.resetFiltro = function() {
             vm.filtro = '';
             load();
         }
-    
+
+        vm.goToPage = function (page) {
+            vm.page.number = page;
+            load();
+        }
+
         function load() {
-            ProdutoService.findAll(vm.filtro)
+            ClienteService.findAll(vm.filtro, vm.page)
               .then(function (dados) {
-                  vm.registros = dados
+                vm.data = dados
               });
         }
   
@@ -28,7 +37,7 @@
             DialogBuilder.confirm('Tem certeza que deseja remover o registro?')
                 .then(function (result) {
                     if (result.value) {
-                        ProdutoService.remove(item.id)
+                        ClienteService.remove(item.id)
                             .then(function () {
                                 load();
                                 DialogBuilder.message('Registro excluído com sucesso!');
