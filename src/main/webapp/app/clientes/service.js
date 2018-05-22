@@ -9,15 +9,30 @@
     function ClienteService($http) {
 
         function findAll(filtro, page) {
-            return $http.get('http://localhost:8080/api/clientes?filterField=nome&filterValue=' + filtro)
+            return $http.get('http://localhost:8080/api/clientes?page=' + page.number 
+                + '&size=' + page.size + '&filterField=nome&filterValue=' + filtro)
               .then(function(response) {
                 return {
                     registros: response.data,
-                    total: response.headers['X-Total-Lenght'],
-                    pages: ['1', '2'],
-                    currentPage: '1'
+                    total: response.headers('X-Total-Lenght'),
+                    pageSize: response.headers('X-Page-Size'),
+                    pages: _calcPage(response.headers('X-Total-Lenght'), response.headers('X-Page-Size')),
+                    currentPage: response.headers('X-Current-Page')
                 }
               });
+        }
+
+        function _calcPage(totalRegistros, tamanhoPagina) {
+            var pages = [];
+            var num = totalRegistros / tamanhoPagina;
+            var actual = 1;
+
+            while (num > 0) {
+                pages.push(actual++)
+                num -= 1;
+            }
+
+            return pages;
         }
 
         function findById(id) {

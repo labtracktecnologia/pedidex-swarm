@@ -10,6 +10,10 @@
         var vm = this;
         vm.data = {};
         vm.filtro = '';
+        vm.page = {
+            number: 1,
+            size: 5
+        }
   
         vm.atualizar = load;
         vm.resetFiltro = function() {
@@ -17,10 +21,15 @@
             load();
         }
 
+        vm.goToPage = function (page) {
+            vm.page.number = page;
+            load();
+        }
+
         function load() {
-            ClienteService.findAll(vm.filtro)
+            ClienteService.findAll(vm.filtro, vm.page)
               .then(function (dados) {
-                  vm.data = dados
+                vm.data = dados
               });
         }
   
@@ -28,7 +37,7 @@
             DialogBuilder.confirm('Tem certeza que deseja remover o registro?')
                 .then(function (result) {
                     if (result.value) {
-                        ProdutoService.remove(item.id)
+                        ClienteService.remove(item.id)
                             .then(function () {
                                 load();
                                 DialogBuilder.message('Registro excluído com sucesso!');

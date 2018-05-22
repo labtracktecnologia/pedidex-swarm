@@ -34,6 +34,8 @@ public abstract class AbstractCrudResource<T extends Entidade> {
         Response response = Response.status(responseStatus)
                 .entity(getService().findAll(pageSize, pageNumber, filterField, filterValue, order)).build();
         response.getHeaders().add("X-Total-Lenght", total);
+        response.getHeaders().add("X-Page-Size", pageSize);
+        response.getHeaders().add("X-Current-Page", pageNumber);
         return response;
     }
     

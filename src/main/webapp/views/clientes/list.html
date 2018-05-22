@@ -49,14 +49,14 @@
     </table>
     <nav aria-label="Page navigation example">
         <ul class="pagination justify-content-end">
-            <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1">Anterior</a>
+            <li class="page-item" ng-class="{'disabled': vm.data.currentPage == 1}">
+                <button ng-click="vm.goToPage(vm.page.number-1)" type="button" class="page-link" tabindex="-1">Anterior</button>
             </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#">Próximo</a>
+            <li ng-repeat="item in vm.data.pages" class="page-item" ng-class="{'disabled': vm.data.currentPage == item}">
+                <button ng-click="vm.goToPage(item)" type="button" class="page-link" tabindex="-1">{{item}}</button>
+            </li>
+            <li class="page-item" ng-class="{'disabled': vm.data.total <= vm.data.currentPage * vm.data.pageSize}">
+                <button ng-click="vm.goToPage(vm.page.number+1)" type="button" class="page-link" tabindex="-1">Próxima</button>
             </li>
         </ul>
     </nav>

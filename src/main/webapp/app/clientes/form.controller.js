@@ -4,20 +4,31 @@
     angular.module('app')
         .controller('ClienteFormController', ClienteFormController);
 
-    ClienteFormController.$inject = ['ClienteService'];
+    ClienteFormController.$inject = ['ClienteService', '$state', '$stateParams','DialogBuilder'];
 
-    function ClienteFormController(ClienteService) {
+    function ClienteFormController(ClienteService, $state, $stateParams, DialogBuilder) {
 
         var vm = this;
-        vm.registro = {}
+        vm.registro = {};
+        vm.error = {};
 
         vm.salvar = salvar;
+
+        if ($stateParams.id) {
+            ClienteService.findById($stateParams.id)
+              .then(function (data) {
+                vm.registro = data;
+              });
+        }
 
         function salvar() {
             ClienteService.insert(vm.registro)
               .then(function(dado){
-                alert('Cliente ' + dado.nome + ' inserido com sucesso!!!')
-                vm.registro = {}
+                DialogBuilder.message('Registro excluído com sucesso!');
+                $state.go(-1);
+              })
+              .catch(function (error) {
+                vm.error = error.data;
               });
         }
     }
