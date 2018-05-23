@@ -1,38 +1,20 @@
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-    <h1 class="h2">Novo cliente</h1>
+    <h1 class="h2">Novo pedido</h1>
 </div>
 <form>
     <div class="form-group">
-        <label for="nome">Nome</label>
-        <input type="text" ng-class="{'is-invalid': vm.error.nome}" ng-model="vm.registro.nome" class="form-control" id="nome" placeholder="Digite o nome do cliente">
-        <small ng-if="vm.error.nome" class="invalid-feedback">
-            {{vm.error.nome[1]}}
+        <label for="nome">Cliente</label>
+        <select 
+            ng-class="{'is-invalid': vm.error.cliente}" 
+            ng-options="item as item.nome for item in vm.clientes track by item.id"            
+            ng-model="vm.registro.cliente" 
+            class="form-control">
+        </select>
+        <small ng-if="vm.error.cliente" class="invalid-feedback">
+            {{vm.error.cliente[1]}}
         </small>
-    </div>
-    <div class="form-group">
-        <label for="email">E-mail</label>
-        <input type="text" ng-class="{'is-invalid': vm.error.email}" ng-model="vm.registro.email" class="form-control" id="email">
-        <small ng-if="vm.error.email" class="invalid-feedback">
-            {{vm.error.email[1]}}
-        </small>
-        </div>
-    <div class="form-row">
-        <div class="form-group col-md-6">
-            <label for="documento">Documento</label>
-            <input type="text" ng-class="{'is-invalid': vm.error.documento}" ng-model="vm.registro.documento" class="form-control" id="documento">
-            <small ng-if="vm.error.documento" class="invalid-feedback">
-                {{vm.error.documento[1]}}
-            </small>
-        </div>
-        <div class="form-group col-md-6">
-            <label for="telefone">Telefone</label>
-            <input type="text" ng-class="{'is-invalid': vm.error.telefone}" ng-model="vm.registro.telefone" class="form-control" id="telefone">
-            <small ng-if="vm.error.telefone" class="invalid-feedback">
-                {{vm.error.telefone[1]}}
-            </small>
-        </div>
     </div>
 
     <button type="button" ng-click="vm.salvar()" class="btn btn-primary">Salvar</button>
-    <a ui-sref="clientesList" class="btn btn-danger">Cancelar</button>
+    <a ui-sref="pedidosList" class="btn btn-danger">Cancelar</button>
 </form>

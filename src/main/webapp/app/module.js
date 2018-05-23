@@ -51,6 +51,27 @@
                 templateUrl: '/views/produtos/form.html',
                 controller: 'ProdutoFormController',
                 controllerAs: 'vm'
+            })
+            .state({
+                name: 'pedidosList',
+                url: '/pedidos',
+                templateUrl: '/views/pedidos/list.html',
+                controller: 'PedidoListController',
+                controllerAs: 'vm'
+            })
+            .state({
+                name: 'pedidosNovo',
+                url: '/pedidos/novo',
+                templateUrl: '/views/pedidos/form.html',
+                controller: 'PedidoFormController',
+                controllerAs: 'vm'
+            })
+            .state({
+                name: 'pedidosEditar',
+                url: '/pedidos/{id}',
+                templateUrl: '/views/pedidos/form.html',
+                controller: 'PedidoFormController',
+                controllerAs: 'vm'
             });
     }
 })();

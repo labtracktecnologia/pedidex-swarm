@@ -2,11 +2,11 @@
     'use strict'
 
     angular.module('app')
-      .service('ClienteService', ClienteService);
+      .service('ProdutoService', ProdutoService);
 
-    ClienteService.$inject = ['$http'];
+    ProdutoService.$inject = ['$http'];
 
-    function ClienteService($http) {
+    function ProdutoService($http) {
 
         function findAll(filtro, page) {
             return $http.get('http://localhost:8080/api/clientes?page=' + page.number 

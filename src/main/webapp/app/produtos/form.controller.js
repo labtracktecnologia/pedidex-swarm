@@ -2,11 +2,11 @@
     'use strict'
 
     angular.module('app')
-        .controller('ClienteFormController', ClienteFormController);
+        .controller('ProdutoFormController', ProdutoFormController);
 
-    ClienteFormController.$inject = ['ClienteService', '$state', '$stateParams','DialogBuilder'];
+    ProdutoFormController.$inject = ['ProdutoService', '$state', '$stateParams','DialogBuilder'];
 
-    function ClienteFormController(ClienteService, $state, $stateParams, DialogBuilder) {
+    function ProdutoFormController(ProdutoService, $state, $stateParams, DialogBuilder) {
 
         var vm = this;
         vm.registro = {};
@@ -15,14 +15,14 @@
         vm.salvar = salvar;
 
         if ($stateParams.id) {
-            ClienteService.findById($stateParams.id)
+            ProdutoService.findById($stateParams.id)
               .then(function (data) {
                 vm.registro = data;
               });
         }
 
         function salvar() {
-            ClienteService.insert(vm.registro)
+            ProdutoService.insert(vm.registro)
               .then(function(dado){
                 DialogBuilder.message('Registro excluído com sucesso!');
                 $state.go(-1);

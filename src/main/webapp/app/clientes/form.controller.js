@@ -26,7 +26,7 @@
             ClienteService.insert(vm.registro)
               .then(function(dado){
                 DialogBuilder.message('Registro inserido com sucesso!');
-                $state.go("^");
+                $state.go("clientesList");
               })
               .catch(function (error) {
                 vm.error = error.data;
@@ -35,7 +35,7 @@
             ClienteService.update(vm.registro)
               .then(function(dado){
                 DialogBuilder.message('Registro alterado com sucesso!');
-                $state.go("^");
+                $state.go("clientesList");
               })
               .catch(function (error) {
                 vm.error = error.data;

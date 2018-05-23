@@ -8,6 +8,13 @@
 
     function ClienteService($http) {
 
+        function findAllOver() {
+            return $http.get('http://localhost:8080/api/clientes/all?order=nome')
+              .then(function(response) {
+                  return response.data;
+              });
+        }
+
         function findAll(filtro, page) {
             return $http.get('http://localhost:8080/api/clientes?page=' + page.number 
                 + '&size=' + page.size + '&filterField=nome&filterValue=' + filtro)
@@ -65,6 +72,7 @@
 
         return {
             findAll: findAll,
+            findAllOver: findAllOver,
             findById: findById,
             insert: insert,
             update: update,
