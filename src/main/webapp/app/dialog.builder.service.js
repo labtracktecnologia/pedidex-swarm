@@ -1,4 +1,4 @@
-(function() {
+(function () {
     angular.module('app')
         .service('DialogBuilder', DialogBuilder);
 
@@ -12,7 +12,7 @@
                 confirmButtonClass: 'btn btn-success mx-2',
                 cancelButtonClass: 'btn btn-danger mx-2',
                 buttonsStyling: false
-              }),
+            }),
             message: swal.mixin({
                 position: 'top-end',
                 type: 'success',
@@ -20,6 +20,6 @@
                 timer: 1500
             })
         }
-        
+
     }
 })();

@@ -23,17 +23,17 @@
     <table class="table table-striped table-sm">
         <thead>
             <tr>
-                <th>Cliente</th>
                 <th>Emissão</th>
-                <th>Total</th>
+                <th>Cliente</th>
+                <th class="text-right">Total</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="item in vm.data.registros">
+                <td>{{item.emissao | date : 'dd/MM/yyyy HH:mm'}}</td>
                 <td>{{item.cliente.nome}}</td>
-                <td>{{item.emissao | date: dd/mm/yyyy}}</td>
-                <td>{{item.total | number: 2}}</td>
+                <td class="text-right">{{item.valorTotal | number: 2}}</td>
                 <td class="text-right">
                     <a ui-sref="pedidosEditar({id: item.id})" class="btn btn-sm btn-link py-0">
                         <span class="feather icon-edit"></span>
@@ -62,7 +62,8 @@
         </ul>
         <ul class="navbar-nav">
             <li class="nav-item">
-                Registros {{vm.data.currentPage * vm.data.pageSize - vm.data.pageSize + 1}} a {{vm.data.currentPage * vm.data.pageSize > vm.data.total ? vm.data.total : vm.data.currentPage * vm.data.pageSize}} de um total de {{vm.data.total}}.
+                Registros {{vm.data.currentPage * vm.data.pageSize - vm.data.pageSize + 1}} a {{vm.data.currentPage * vm.data.pageSize >
+                vm.data.total ? vm.data.total : vm.data.currentPage * vm.data.pageSize}} de um total de {{vm.data.total}}.
             </li>
         </ul>
         <form class="form-inline">
